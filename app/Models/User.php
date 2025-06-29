@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function coachingSessions(): BelongsToMany
     {
-        return $this->belongsToMany(CoachingSession::class, 'session_participants')
+        return $this->belongsToMany(\App\Models\Session::class, 'session_participants')
             ->withTimestamps();
     }
 

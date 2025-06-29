@@ -16,9 +16,18 @@ class SessionController extends Controller
         $user = Auth::user();
 
         if ($user->role === 'coach') {
-            $sessions = Session::where('coach_id', $user->id)->get();
+            $sessions = Session::where('coach_id', $user->id)
+                ->where('start_time', '>=', Carbon::now())
+                ->with(['participants', 'coach'])
+                ->withCount('participants')
+                ->orderBy('start_time')
+                ->get();
         } else {
-            $sessions = Session::where('start_time', '>=', Carbon::now())->get();
+            $sessions = Session::where('start_time', '>=', Carbon::now())
+                ->with(['participants', 'coach'])
+                ->withCount('participants')
+                ->orderBy('start_time')
+                ->get();
         }
 
         return view('sessions.index', compact('sessions'));
@@ -80,5 +89,32 @@ class SessionController extends Controller
         $session->participants()->attach(Auth::id());
 
         return redirect()->back()->with('success', 'Vous êtes maintenant inscrit à cette session.');
+    }
+
+    public function edit(Session $session)
+    {
+        $companies = Company::all();
+        return view('sessions.edit', compact('session', 'companies'));
+    }
+
+    public function update(Request $request, Session $session)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_time' => 'required|date|after:now',
+            'duration' => 'required|integer|min:15',
+            'location' => 'required|string|max:255',
+            'company_id' => 'required|exists:companies,id',
+            'max_participants' => 'required|integer|min:1',
+        ]);
+        $session->update($validated);
+        return redirect()->route('sessions.show', $session)->with('success', 'Séance mise à jour avec succès.');
+    }
+
+    public function destroy(Session $session)
+    {
+        $session->delete();
+        return redirect()->route('sessions.index')->with('success', 'Séance supprimée avec succès.');
     }
 }
