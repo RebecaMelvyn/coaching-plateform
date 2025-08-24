@@ -4,12 +4,7 @@
             <div class="flex items-center gap-10">
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                        <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="19" cy="19" r="19" fill="#2563eb"/>
-                            <ellipse cx="19" cy="19" rx="10" ry="5" fill="#a78bfa"/>
-                            <ellipse cx="19" cy="13" rx="6" ry="3" fill="#22c55e"/>
-                        </svg>
-                        <span class="text-2xl font-extrabold tracking-tight text-primary drop-shadow-sm dark:text-white">CoachPro</span>
+                        <span class="text-2xl font-extrabold tracking-tight text-primary drop-shadow-sm dark:text-white">CoachPro+</span>
                     </a>
                 </div>
                 <div class="hidden space-x-8 sm:flex">

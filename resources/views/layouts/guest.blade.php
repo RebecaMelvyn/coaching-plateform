@@ -20,7 +20,7 @@
     <body class="bg-gradient-to-br from-blue-100 via-white to-violet-100 min-h-screen flex flex-col">
         <div class="w-full flex justify-center items-center pt-12">
             <a href="/" class="flex items-center gap-2 font-extrabold text-blue-700 text-2xl">
-                <img src="/logo.png" alt="CoachPro" class="h-10 w-10 hidden md:inline-block"> CoachPro
+                CoachPro+
             </a>
         </div>
         <div class="flex-1 flex flex-col justify-center items-center">

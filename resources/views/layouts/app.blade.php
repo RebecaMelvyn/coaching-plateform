@@ -23,7 +23,7 @@
         <!-- Barre de navigation -->
         <nav class="w-full flex justify-between items-center px-8 py-4 bg-white shadow-md fixed top-0 left-0 z-20 backdrop-blur">
             <a href="/" class="flex items-center gap-2 font-extrabold text-blue-700 text-xl">
-                <img src="/logo.png" alt="CoachPro" class="h-8 w-8 hidden md:inline-block"> CoachPro
+                CoachPro+
             </a>
             <div class="flex gap-4 items-center">
                 <a href="{{ route('dashboard') }}" class="text-blue-700 font-semibold hover:text-violet-600 transition">Dashboard</a>

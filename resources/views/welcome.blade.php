@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CoachPro - Plateforme de Coaching en Entreprise</title>
+  <title>CoachPro+ - Plateforme de Coaching en Entreprise</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -19,7 +19,7 @@
     </div>
   </nav>
   <header class="bg-blue-700 text-white py-16 text-center relative">
-    <h1 class="text-4xl font-extrabold mb-4">CoachPro&nbsp;: Coaching en Entreprise</h1>
+    <h1 class="text-4xl font-extrabold mb-4">CoachPro+&nbsp;: Coaching en Entreprise</h1>
     <p class="text-xl mb-6 max-w-2xl mx-auto">Plateforme dédiée au bien-être et à la performance des salariés. Proposez à vos équipes des séances de coaching sportif, bien-être et développement professionnel, animées par des coachs certifiés, sur site ou à distance.</p>
     <div class="flex flex-col sm:flex-row justify-center gap-4">
       <a href="{{ route('login') }}" class="bg-white text-blue-700 px-6 py-3 font-bold rounded-xl hover:bg-blue-100">Découvrir la plateforme</a>
@@ -98,7 +98,7 @@
 
   <footer class="bg-blue-700 text-white text-center py-10">
     <h2 class="text-2xl font-bold mb-2">Prêt à booster la performance et le bien-être de vos équipes&nbsp;?</h2>
-    <a href="{{ route('login') }}" class="inline-block mt-4 bg-white text-blue-700 px-6 py-3 rounded-full font-bold hover:bg-blue-100">Découvrir CoachPro</a>
+    <a href="{{ route('login') }}" class="inline-block mt-4 bg-white text-blue-700 px-6 py-3 rounded-full font-bold hover:bg-blue-100">Découvrir CoachPro+</a>
   </footer>
 </body>
 </html>
