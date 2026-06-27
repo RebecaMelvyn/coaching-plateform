@@ -7,55 +7,234 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# CoachPro+ – Plateforme de coaching en entreprise
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Présentation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+CoachPro+ est une application web développée dans le cadre d'un projet de **MBA Développeur Full Stack**.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Elle permet de digitaliser la gestion des séances de coaching en entreprise grâce à une plateforme moderne, responsive et sécurisée.
 
-## Learning Laravel
+L'objectif est de simplifier les échanges entre les coachs, les salariés et les administrateurs tout en offrant une meilleure organisation des séances.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Fonctionnalités
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Administrateur
 
-## Laravel Sponsors
+* Tableau de bord global
+* Gestion des utilisateurs
+* Gestion des entreprises
+* Gestion des séances
+* Consultation des statistiques
+* Suivi des inscriptions
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Coach
 
-### Premium Partners
+* Authentification sécurisée
+* Tableau de bord personnel
+* Création de séances
+* Modification des séances
+* Suppression des séances
+* Consultation des participants
+* Calendrier des séances
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Salarié
 
-## Contributing
+* Consultation des séances disponibles
+* Inscription à une séance
+* Historique des participations
+* Tableau de bord personnalisé
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Technologies utilisées
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Backend
 
-## Security Vulnerabilities
+* Laravel 12
+* PHP 8
+* Laravel Breeze
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Frontend
 
-## License
+* Blade
+* Tailwind CSS
+* Alpine.js
+* Vite
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Base de données
+
+* MySQL
+
+### Outils
+
+* Git
+* GitHub
+* Figma
+* Asana
+
+---
+
+## Architecture
+
+```text
+CoachPro+
+
+├── Administration
+│   ├── Utilisateurs
+│   ├── Entreprises
+│   ├── Séances
+│   └── Statistiques
+│
+├── Coach
+│   ├── Dashboard
+│   ├── Mes séances
+│   ├── Calendrier
+│   └── Profil
+│
+└── Salarié
+    ├── Dashboard
+    ├── Séances disponibles
+    ├── Historique
+    └── Profil
+```
+
+---
+
+## Installation
+
+### Cloner le projet
+
+```bash
+git clone https://github.com/RebecaMelvyn/coaching-plateform.git
+```
+
+### Installer les dépendances
+
+```bash
+composer install
+```
+
+```bash
+npm install
+```
+
+### Copier le fichier d'environnement
+
+```bash
+cp .env.example .env
+```
+
+### Générer la clé Laravel
+
+```bash
+php artisan key:generate
+```
+
+### Configurer la base de données
+
+Modifier le fichier `.env` :
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=coachpro
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### Lancer les migrations
+
+```bash
+php artisan migrate
+```
+
+### Exécuter les seeders
+
+```bash
+php artisan db:seed
+```
+
+### Compiler les assets
+
+```bash
+npm run dev
+```
+
+### Lancer le serveur
+
+```bash
+php artisan serve
+```
+
+---
+
+## Comptes de démonstration
+
+### Administrateur
+
+```
+Email : admin@example.com
+Mot de passe : password
+```
+
+### Coach
+
+```
+Email : coach@example.com
+Mot de passe : password
+```
+
+### Salarié
+
+```
+Email : employee1@example.com
+Mot de passe : password
+```
+
+*(Adapter ces identifiants en fonction des seeders du projet.)*
+
+---
+
+## Captures d'écran
+
+Le projet comprend notamment :
+
+* Page de connexion
+* Tableau de bord Administrateur
+* Tableau de bord Coach
+* Tableau de bord Salarié
+* Gestion des séances
+* Gestion des utilisateurs
+* Calendrier
+* Version responsive
+
+---
+
+## Évolutions prévues
+
+* Notifications par e-mail
+* Tableau de bord analytique avancé
+* API REST
+* Application mobile
+* Gestion multi-entreprises
+* Tableau de bord RH
+
+---
+
+## Auteur
+
+**Melvyn REBECA**
+
+MBA Développeur Full Stack
+
+Projet réalisé dans le cadre du Workshop Client Réel.
+
+---
+
+## Licence
+
+Projet réalisé dans un cadre pédagogique.
