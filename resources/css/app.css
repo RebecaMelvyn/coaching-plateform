@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .glass-card {
+        @apply rounded-2xl border border-primary/10 bg-white/90 backdrop-blur-xl;
+    }
+
+    .admin-nav-link {
+        @apply flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-gray-700 transition-all duration-200;
+    }
+
+    .admin-nav-icon {
+        @apply h-5 w-5 shrink-0;
+    }
+
+    .admin-nav-link-blue:hover,
+    .admin-nav-link-blue.admin-nav-link-active {
+        color: #fff;
+        background: #2563eb;
+        box-shadow: 0 2px 16px 0 #2563eb33;
+    }
+
+    .admin-nav-link-violet:hover,
+    .admin-nav-link-violet.admin-nav-link-active {
+        color: #fff;
+        background: #a78bfa;
+        box-shadow: 0 2px 16px 0 #a78bfa33;
+    }
+
+    .admin-nav-link-orange:hover,
+    .admin-nav-link-orange.admin-nav-link-active {
+        color: #fff;
+        background: #fbbf24;
+        box-shadow: 0 2px 16px 0 #fbbf2433;
+    }
+
+    .admin-nav-link-green:hover,
+    .admin-nav-link-green.admin-nav-link-active {
+        color: #fff;
+        background: #22c55e;
+        box-shadow: 0 2px 16px 0 #22c55e33;
+    }
+
+    .admin-nav-link-indigo:hover,
+    .admin-nav-link-indigo.admin-nav-link-active {
+        color: #fff;
+        background: #6366f1;
+        box-shadow: 0 2px 16px 0 #6366f133;
+    }
+
+    .admin-nav-link-red:hover {
+        color: #fff;
+        background: #ef4444;
+        box-shadow: 0 2px 16px 0 #ef444433;
+    }
+}
