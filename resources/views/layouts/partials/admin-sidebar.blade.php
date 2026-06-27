@@ -2,10 +2,10 @@
     $navItems = [
         [
             'label' => 'Tableau de bord',
-            'href' => '#',
+            'href' => route('admin.dashboard'),
             'icon' => 'dashboard',
             'color' => 'blue',
-            'active' => request()->is('admin') || request()->is('admin/dashboard'),
+            'active' => request()->routeIs('admin.dashboard') || request()->is('admin'),
         ],
         [
             'label' => 'Utilisateurs',

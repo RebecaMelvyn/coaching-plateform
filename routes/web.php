@@ -8,6 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,6 +37,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Route pour le calendrier
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
+});
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::redirect('/', '/admin/dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__ . '/auth.php';
