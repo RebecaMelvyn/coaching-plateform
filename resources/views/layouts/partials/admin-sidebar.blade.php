@@ -9,31 +9,31 @@
         ],
         [
             'label' => 'Utilisateurs',
-            'href' => '#',
+            'href' => route('admin.users.index'),
             'icon' => 'users',
             'color' => 'violet',
-            'active' => request()->is('admin/users*'),
+            'active' => request()->routeIs('admin.users.*'),
         ],
         [
             'label' => 'Entreprises',
-            'href' => '#',
+            'href' => route('admin.companies.index'),
             'icon' => 'companies',
             'color' => 'orange',
-            'active' => request()->is('admin/companies*'),
+            'active' => request()->routeIs('admin.companies.*'),
         ],
         [
             'label' => 'Séances',
-            'href' => '#',
+            'href' => route('admin.sessions.index'),
             'icon' => 'sessions',
             'color' => 'green',
-            'active' => request()->is('admin/sessions*'),
+            'active' => request()->routeIs('admin.sessions.*'),
         ],
         [
             'label' => 'Statistiques',
-            'href' => '#',
+            'href' => route('admin.statistics.index'),
             'icon' => 'stats',
             'color' => 'indigo',
-            'active' => request()->is('admin/statistics*'),
+            'active' => request()->routeIs('admin.statistics.*'),
         ],
     ];
 @endphp
@@ -50,7 +50,7 @@
             C+
         </div>
         <div class="min-w-0">
-            <a href="#" class="block truncate text-xl font-extrabold tracking-tight text-primary">
+            <a href="{{ route('admin.dashboard') }}" class="block truncate text-xl font-extrabold tracking-tight text-primary">
                 CoachPro+
             </a>
             <span class="text-xs font-semibold uppercase tracking-wider text-accent">Administration</span>

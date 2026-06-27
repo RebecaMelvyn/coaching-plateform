@@ -9,6 +9,10 @@ use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
+use App\Http\Controllers\Admin\SessionController as AdminSessionController;
+use App\Http\Controllers\Admin\StatisticsController as AdminStatisticsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,6 +46,17 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::redirect('/', '/admin/dashboard');
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::patch('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+
+    Route::resource('companies', AdminCompanyController::class)->except(['show']);
+
+    Route::get('/sessions', [AdminSessionController::class, 'index'])->name('sessions.index');
+    Route::delete('/sessions/{session}', [AdminSessionController::class, 'destroy'])->name('sessions.destroy');
+
+    Route::get('/statistics', [AdminStatisticsController::class, 'index'])->name('statistics.index');
 });
 
 require __DIR__ . '/auth.php';
