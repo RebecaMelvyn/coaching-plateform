@@ -1,13 +1,12 @@
 <x-admin-layout>
-    <x-slot name="header">
-        {{ __('Entreprises') }}
-    </x-slot>
+    <x-slot name="header">{{ __('Entreprises') }}</x-slot>
+    <x-slot name="subtitle">{{ __('Gérez les entreprises partenaires') }}</x-slot>
 
     @include('admin.partials.flash')
 
     <x-admin.page-card title="Liste des entreprises">
         <x-slot name="actions">
-            <a href="{{ route('admin.companies.create') }}" class="rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white shadow-md transition hover:bg-primary-dark">
+            <a href="{{ route('admin.companies.create') }}" class="admin-btn-primary">
                 Nouvelle entreprise
             </a>
         </x-slot>
@@ -20,7 +19,7 @@
                     <thead>
                         <tr class="text-left text-xs font-bold uppercase tracking-wider text-gray-500">
                             <th class="px-4 py-3">Nom</th>
-                            <th class="px-4 py-3">Email</th>
+                            <th class="px-4 py-3">E-mail</th>
                             <th class="px-4 py-3">Téléphone</th>
                             <th class="px-4 py-3">Séances</th>
                             <th class="px-4 py-3 text-right">Actions</th>

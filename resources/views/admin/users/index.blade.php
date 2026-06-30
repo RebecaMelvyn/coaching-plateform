@@ -8,9 +8,8 @@
 @endphp
 
 <x-admin-layout>
-    <x-slot name="header">
-        {{ __('Utilisateurs') }}
-    </x-slot>
+    <x-slot name="header">{{ __('Utilisateurs') }}</x-slot>
+    <x-slot name="subtitle">{{ __('Gérez les comptes coachs et salariés') }}</x-slot>
 
     @include('admin.partials.flash')
 
@@ -22,13 +21,13 @@
                     name="search"
                     value="{{ $search }}"
                     placeholder="Rechercher par nom ou email…"
-                    class="w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:w-72"
+                    class="admin-input w-full sm:w-72"
                 >
-                <button type="submit" class="rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white shadow-md transition hover:bg-primary-dark">
+                <button type="submit" class="admin-btn-primary">
                     Rechercher
                 </button>
                 @if ($search !== '')
-                    <a href="{{ route('admin.users.index') }}" class="rounded-xl border border-primary/20 px-4 py-2 text-center text-sm font-bold text-primary transition hover:bg-primary/5">
+                    <a href="{{ route('admin.users.index') }}" class="admin-btn-secondary">
                         Effacer
                     </a>
                 @endif
@@ -36,15 +35,15 @@
         </x-slot>
 
         @if ($users->isEmpty())
-            <p class="text-center text-sm text-gray-500">Aucun utilisateur trouvé.</p>
+            <p class="text-center text-sm text-ink-muted">Aucun utilisateur trouvé.</p>
         @else
             {{-- Tableau desktop --}}
             <div class="hidden overflow-x-auto md:block">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full divide-y divide-slate-100">
                     <thead>
-                        <tr class="text-left text-xs font-bold uppercase tracking-wider text-gray-500">
+                        <tr class="admin-table-head">
                             <th class="px-4 py-3">Nom</th>
-                            <th class="px-4 py-3">Email</th>
+                            <th class="px-4 py-3">E-mail</th>
                             <th class="px-4 py-3">Entreprise</th>
                             <th class="px-4 py-3">Rôle</th>
                             <th class="px-4 py-3">Inscrit le</th>
@@ -54,29 +53,29 @@
                     <tbody class="divide-y divide-gray-100">
                         @foreach ($users as $user)
                             <tr class="hover:bg-gray-50/80">
-                                <td class="px-4 py-4 font-semibold text-primary">{{ $user->name }}</td>
-                                <td class="px-4 py-4 text-sm text-gray-600">{{ $user->email }}</td>
-                                <td class="px-4 py-4 text-sm text-gray-600">{{ $user->company?->name ?? '—' }}</td>
+                                <td class="px-4 py-4 font-semibold text-ink">{{ $user->name }}</td>
+                                <td class="px-4 py-4 text-sm text-ink-muted">{{ $user->email }}</td>
+                                <td class="px-4 py-4 text-sm text-ink-muted">{{ $user->company?->name ?? '—' }}</td>
                                 <td class="px-4 py-4">
                                     <form method="POST" action="{{ route('admin.users.update', $user) }}" class="space-y-2">
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="search" value="{{ $search }}">
                                         <input type="hidden" name="page" value="{{ $users->currentPage() }}">
-                                        <select name="role" class="w-full rounded-lg border-gray-300 text-sm focus:border-primary focus:ring-primary" onchange="this.form.querySelector('[data-company-field]').classList.toggle('hidden', this.value !== 'employee')">
+                                        <select name="role" class="admin-input w-full text-sm" onchange="this.form.querySelector('[data-company-field]').classList.toggle('hidden', this.value !== 'employee')">
                                             <option value="coach" @selected($user->role === 'coach')>Coach</option>
                                             <option value="employee" @selected(in_array($user->role, ['employee', 'employé']))>Salarié</option>
                                             <option value="admin" @selected($user->role === 'admin')>Admin</option>
                                         </select>
                                         <div data-company-field @class(['hidden' => ! in_array($user->role, ['employee', 'employé'])])>
-                                            <select name="company_id" class="w-full rounded-lg border-gray-300 text-sm focus:border-primary focus:ring-primary">
+                                            <select name="company_id" class="admin-input w-full text-sm">
                                                 <option value="">— Entreprise —</option>
                                                 @foreach ($companies as $company)
                                                     <option value="{{ $company->id }}" @selected($user->company_id == $company->id)>{{ $company->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <button type="submit" class="rounded-lg bg-violet-500 px-3 py-1.5 text-xs font-bold text-white hover:bg-violet-600">
+                                        <button type="submit" class="admin-btn-primary px-3 py-1.5 text-xs">
                                             Enregistrer
                                         </button>
                                     </form>
@@ -89,7 +88,7 @@
                                             @method('DELETE')
                                             <input type="hidden" name="search" value="{{ $search }}">
                                             <input type="hidden" name="page" value="{{ $users->currentPage() }}">
-                                            <button type="submit" class="rounded-lg bg-red-500 px-3 py-1.5 text-xs font-bold text-white hover:bg-red-600">
+                                            <button type="submit" class="admin-btn-danger">
                                                 Supprimer
                                             </button>
                                         </form>

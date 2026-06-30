@@ -22,38 +22,34 @@ class DashboardController extends Controller
             'registrations' => DB::table('session_participants')->count(),
         ];
 
-        $latestSessions = Session::query()
+        $trends = [
+            'users' => $this->monthTrend(User::query()),
+            'coaches' => $this->monthTrend(User::query()->where('role', 'coach')),
+            'employees' => $this->monthTrend(User::query()->whereIn('role', ['employee', 'employé'])),
+            'companies' => $this->monthTrend(Company::query()),
+            'sessions' => $this->monthTrend(Session::query()),
+            'registrations' => $this->monthTrend(DB::table('session_participants')),
+        ];
+
+        $recentSessions = Session::query()
             ->with(['coach', 'company'])
-            ->latest()
+            ->withCount('participants')
+            ->latest('start_time')
             ->limit(5)
             ->get();
 
-        $latestUsers = User::query()
-            ->with('company')
-            ->latest()
-            ->limit(5)
-            ->get();
+        return view('admin.dashboard', compact('stats', 'trends', 'recentSessions'));
+    }
 
-        $latestRegistrations = DB::table('session_participants as sp')
-            ->join('users as u', 'u.id', '=', 'sp.user_id')
-            ->join('coaching_sessions as cs', 'cs.id', '=', 'sp.session_id')
-            ->select(
-                'sp.id',
-                'sp.created_at',
-                'u.name as user_name',
-                'u.email as user_email',
-                'cs.title as session_title',
-                'cs.start_time as session_start_time',
-            )
-            ->orderByDesc('sp.created_at')
-            ->limit(5)
-            ->get();
+    private function monthTrend($query): string
+    {
+        $builder = clone $query;
 
-        return view('admin.dashboard', compact(
-            'stats',
-            'latestSessions',
-            'latestUsers',
-            'latestRegistrations',
-        ));
+        $count = $builder
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
+        return $count > 0 ? "+{$count} ce mois" : '0 ce mois';
     }
 }

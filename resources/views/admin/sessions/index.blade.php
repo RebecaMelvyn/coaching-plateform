@@ -1,7 +1,6 @@
 <x-admin-layout>
-    <x-slot name="header">
-        {{ __('Séances') }}
-    </x-slot>
+    <x-slot name="header">{{ __('Séances') }}</x-slot>
+    <x-slot name="subtitle">{{ __('Consultez et gérez les séances de coaching') }}</x-slot>
 
     @include('admin.partials.flash')
 

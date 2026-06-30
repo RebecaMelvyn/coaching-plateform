@@ -1,95 +1,77 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
+    <div class="auth-panel max-w-lg mx-auto w-full lg:max-w-none">
+        <div class="mb-8">
+            <h1 class="font-display text-3xl font-bold text-ink">Inscription</h1>
+            <p class="mt-2 text-sm text-ink-muted">Créez votre compte CoachPro+</p>
+        </div>
 
         @if ($errors->has('error'))
-            <div class="mb-4 font-medium text-red-600">
-                {{ $errors->first('error') }}
-            </div>
+            <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">{{ $errors->first('error') }}</div>
         @endif
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Nom')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+        <form method="POST" action="{{ route('register') }}" class="space-y-5">
+            @csrf
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+            <div>
+                <label for="name" class="block text-sm font-medium text-ink">Nom</label>
+                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus class="app-input mt-1">
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
 
-        <!-- Role Selection -->
-        <div class="mt-4">
-            <x-input-label for="role" :value="__('Type de compte')" />
-            <select name="role" id="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" onchange="toggleCompanyFields()">
-                <option value="coach" {{ old('role') == 'coach' ? 'selected' : '' }}>Coach</option>
-                <option value="employee" {{ old('role') == 'employee' ? 'selected' : '' }}>Employé</option>
-            </select>
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-ink">E-mail</label>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required class="app-input mt-1">
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
 
-        <!-- Company Selection (for employees) -->
-        <div class="mt-4" id="company-fields" style="display: none;">
-            <x-input-label for="company_id" :value="__('Entreprise')" />
-            <select name="company_id" id="company_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                <option value="">Sélectionnez une entreprise</option>
-                @foreach($companies as $company)
-                    <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
-                        {{ $company->name }}
-                    </option>
-                @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
-        </div>
+            <div>
+                <label for="role" class="block text-sm font-medium text-ink">Type de compte</label>
+                <select name="role" id="role" class="app-input mt-1" onchange="toggleCompanyFields()">
+                    <option value="coach" @selected(old('role') == 'coach')>Coach</option>
+                    <option value="employee" @selected(old('role') == 'employee')>Employé</option>
+                </select>
+                <x-input-error :messages="$errors->get('role')" class="mt-2" />
+            </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Mot de passe')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <div id="company-fields" class="{{ old('role') === 'employee' ? '' : 'hidden' }}">
+                <label for="company_id" class="block text-sm font-medium text-ink">Entreprise</label>
+                <select name="company_id" id="company_id" class="app-input mt-1">
+                    <option value="">Sélectionnez une entreprise</option>
+                    @foreach($companies as $company)
+                        <option value="{{ $company->id }}" @selected(old('company_id') == $company->id)>{{ $company->name }}</option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
+            </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirmer le mot de passe')" />
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-ink">Mot de passe</label>
+                <input id="password" type="password" name="password" required class="app-input mt-1">
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Déjà inscrit?') }}
-            </a>
+            <div>
+                <label for="password_confirmation" class="block text-sm font-medium text-ink">Confirmer le mot de passe</label>
+                <input id="password_confirmation" type="password" name="password_confirmation" required class="app-input mt-1">
+            </div>
 
-            <x-primary-button class="ml-4">
-                {{ __('S\'inscrire') }}
-            </x-primary-button>
-        </div>
-    </form>
+            <button type="submit" class="app-btn-primary w-full py-3">S'inscrire</button>
+        </form>
+
+        <p class="mt-8 text-center text-sm text-ink-muted">
+            Déjà inscrit ?
+            <a href="{{ route('login') }}" class="font-semibold text-primary">Se connecter</a>
+        </p>
+    </div>
 
     <script>
         function toggleCompanyFields() {
-            const roleSelect = document.getElementById('role');
-            const companyFields = document.getElementById('company-fields');
-            const companySelect = document.getElementById('company_id');
-
-            if (roleSelect.value === 'employee') {
-                companyFields.style.display = 'block';
-                companySelect.required = true;
-            } else {
-                companyFields.style.display = 'none';
-                companySelect.required = false;
-            }
+            const role = document.getElementById('role').value;
+            const fields = document.getElementById('company-fields');
+            const select = document.getElementById('company_id');
+            fields.classList.toggle('hidden', role !== 'employee');
+            select.required = role === 'employee';
         }
-
-        // Exécuter au chargement de la page pour gérer l'état initial
-        document.addEventListener('DOMContentLoaded', function() {
-            toggleCompanyFields();
-        });
+        document.addEventListener('DOMContentLoaded', toggleCompanyFields);
     </script>
 </x-guest-layout>

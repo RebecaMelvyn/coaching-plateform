@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 });
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::redirect('/', '/admin/dashboard');
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 

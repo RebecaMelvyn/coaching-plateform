@@ -9,7 +9,7 @@
                 </div>
                 <div class="hidden space-x-8 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="nav-link nav-link-blue">{{ __('Tableau de bord') }}</x-nav-link>
-                    <x-nav-link :href="route('sessions.index')" :active="request()->routeIs('sessions.*')" class="nav-link nav-link-violet">{{ __('Sessions') }}</x-nav-link>
+                    <x-nav-link :href="route('sessions.index')" :active="request()->routeIs('sessions.*')" class="nav-link nav-link-violet">{{ __('Séances') }}</x-nav-link>
                     <x-nav-link :href="route('calendar')" :active="request()->routeIs('calendar')" class="nav-link nav-link-green">{{ __('Calendrier') }}</x-nav-link>
                     @if(Auth::user() && Auth::user()->role !== 'employee')
                         <x-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.*')" class="nav-link nav-link-orange">{{ __('Entreprises') }}</x-nav-link>
@@ -47,8 +47,8 @@
     </div>
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="nav-link nav-link-blue">{{ __('Dashboard') }}</x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('sessions.index')" :active="request()->routeIs('sessions.*')" class="nav-link nav-link-violet">{{ __('Sessions') }}</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="nav-link nav-link-blue">{{ __('Tableau de bord') }}</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('sessions.index')" :active="request()->routeIs('sessions.*')" class="nav-link nav-link-violet">{{ __('Séances') }}</x-responsive-nav-link>
             <x-responsive-nav-link :href="route('calendar')" :active="request()->routeIs('calendar')" class="nav-link nav-link-green">{{ __('Calendrier') }}</x-responsive-nav-link>
             @if(Auth::user() && Auth::user()->role !== 'employee')
                 <x-responsive-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.*')" class="nav-link nav-link-orange">{{ __('Entreprises') }}</x-responsive-nav-link>

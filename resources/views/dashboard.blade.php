@@ -14,7 +14,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                     </span>
                     <div class="text-gray-900">
-                        <h3 class="text-lg font-semibold mb-2">Sessions à venir</h3>
+                        <h3 class="text-lg font-semibold mb-2">Séances à venir</h3>
                         <p class="text-3xl font-bold text-blue-600">{{ $upcomingSessions ?? 0 }}</p>
                     </div>
                 </div>
@@ -42,10 +42,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2">
-                        <h3 class="text-lg font-semibold">Prochaines sessions</h3>
+                        <h3 class="text-lg font-semibold">Prochaines séances</h3>
                         <a href="{{ route('sessions.create') }}" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
-                            {{ __('Nouvelle session') }}
+                            Nouvelle séance
                         </a>
                     </div>
                     
@@ -73,7 +73,7 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="text-gray-500 text-center py-4">Aucune session prévue</p>
+                        <p class="text-gray-500 text-center py-4">Aucune séance prévue</p>
                     @endif
                 </div>
             </div>

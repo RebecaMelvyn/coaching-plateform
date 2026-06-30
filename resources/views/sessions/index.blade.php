@@ -1,91 +1,56 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-extrabold text-2xl text-primary leading-tight drop-shadow-sm">{{ __('Sessions') }}</h2>
-            @if(auth()->user()->role === 'coach')
-                <a href="{{ route('sessions.create') }}" class="px-6 py-3 rounded-xl bg-blue-600 font-bold text-white shadow-lg transition-transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-400">Créer une nouvelle session</a>
-            @endif
-        </div>
-    </x-slot>
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="glass-card shadow-xl">
-                <div class="p-8 text-gray-900">
-                    @if(auth()->user()->role === 'employee')
-                        <h3 class="text-xl font-bold text-primary mb-6">Sessions auxquelles je suis inscrit</h3>
-                        @php $registeredSessions = $sessions->filter(function($session) { return $session->participants->contains(auth()->id()); }); @endphp
-                        @if($registeredSessions->isEmpty())
-                            <p class="text-center text-gray-500 mb-6">Aucune session réservée.</p>
-                        @else
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
-                                @foreach($registeredSessions as $session)
-                                    <div class="glass-card border border-primary/10 p-6 flex flex-col shadow-lg hover:shadow-2xl transition-all">
-                                        <h3 class="text-lg font-semibold mb-2 text-primary">{{ $session->title }}</h3>
-                                        <p class="text-gray-600 mb-4">{{ $session->description }}</p>
-                                        <div class="space-y-2 text-sm">
-                                            <p><strong>Date:</strong> {{ $session->start_time->format('d/m/Y H:i') }}</p>
-                                            <p><strong>Lieu:</strong> {{ $session->location }}</p>
-                                            <p><strong>Coach:</strong> {{ $session->coach->name }}</p>
-                                            <p><strong>Participants:</strong> {{ $session->registrations_count }}/{{ $session->max_participants }}</p>
-                                        </div>
-                                        <div class="mt-4">
-                                            <a href="{{ route('sessions.show', $session) }}" class="text-primary font-bold hover:underline">Voir les détails</a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
-                        <h3 class="text-xl font-bold text-primary mb-6">Sessions disponibles à la réservation</h3>
-                        @php $availableSessions = $sessions->filter(function($session) { return !$session->participants->contains(auth()->id()) && $session->registrations_count < $session->max_participants; }); @endphp
-                        @if($availableSessions->isEmpty())
-                            <p class="text-center text-gray-500">Aucune session disponible à la réservation.</p>
-                        @else
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                @foreach($availableSessions as $session)
-                                    <div class="glass-card border border-primary/10 p-6 flex flex-col shadow-lg hover:shadow-2xl transition-all">
-                                        <h3 class="text-lg font-semibold mb-2 text-primary">{{ $session->title }}</h3>
-                                        <p class="text-gray-600 mb-4">{{ $session->description }}</p>
-                                        <div class="space-y-2 text-sm">
-                                            <p><strong>Date:</strong> {{ $session->start_time->format('d/m/Y H:i') }}</p>
-                                            <p><strong>Lieu:</strong> {{ $session->location }}</p>
-                                            <p><strong>Coach:</strong> {{ $session->coach->name }}</p>
-                                            <p><strong>Participants:</strong> {{ $session->registrations_count }}/{{ $session->max_participants }}</p>
-                                        </div>
-                                        <div class="mt-4 flex gap-2">
-                                            <a href="{{ route('sessions.show', $session) }}" class="text-primary font-bold hover:underline">Voir les détails</a>
-                                            <form method="POST" action="{{ route('sessions.register', $session) }}">@csrf
-                                                <button type="submit" class="px-4 py-2 rounded-lg bg-violet-500 text-white font-bold shadow-md hover:scale-105 hover:shadow-xl transition-all">S'inscrire</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
-                    @else
-                        @if($sessions->isEmpty())
-                            <p class="text-center text-gray-500">Aucune session trouvée.</p>
-                        @else
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                @foreach($sessions as $session)
-                                    <div class="glass-card border border-primary/10 p-6 flex flex-col shadow-lg hover:shadow-2xl transition-all">
-                                        <h3 class="text-lg font-semibold mb-2 text-primary">{{ $session->title }}</h3>
-                                        <p class="text-gray-600 mb-4">{{ $session->description }}</p>
-                                        <div class="space-y-2 text-sm">
-                                            <p><strong>Date:</strong> {{ $session->start_time->format('d/m/Y H:i') }}</p>
-                                            <p><strong>Lieu:</strong> {{ $session->location }}</p>
-                                            <p><strong>Coach:</strong> {{ $session->coach->name }}</p>
-                                            <p><strong>Participants:</strong> {{ $session->registrations_count }}/{{ $session->max_participants }}</p>
-                                        </div>
-                                        <div class="mt-4">
-                                            <a href="{{ route('sessions.show', $session) }}" class="text-primary font-bold hover:underline">Voir les détails</a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
-                    @endif
+    @if(auth()->user()->role === 'coach')
+        <x-slot name="header">Mes séances</x-slot>
+        <x-slot name="subtitle">Gérez vos séances de coaching</x-slot>
+        <x-slot name="action">
+            <a href="{{ route('sessions.create') }}" class="app-btn-primary">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                Nouvelle séance
+            </a>
+        </x-slot>
+    @else
+        <x-slot name="header">Mes réservations</x-slot>
+        <x-slot name="subtitle">Séances inscrites et disponibles</x-slot>
+    @endif
+
+    @if(auth()->user()->role === 'employee')
+        @php
+            $registeredSessions = $sessions->filter(fn ($s) => $s->participants->contains(auth()->id()));
+            $availableSessions = $sessions->filter(fn ($s) => !$s->participants->contains(auth()->id()) && $s->participants_count < $s->max_participants);
+        @endphp
+
+        @if($registeredSessions->isNotEmpty())
+            <x-admin.page-card title="Séances auxquelles je suis inscrit" class="mb-8">
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                    @foreach($registeredSessions as $session)
+                        <x-app.session-card :session="$session" />
+                    @endforeach
                 </div>
-            </div>
-        </div>
-    </div>
+            </x-admin.page-card>
+        @endif
+
+        <x-admin.page-card title="Séances disponibles à la réservation">
+            @if($availableSessions->isEmpty())
+                <p class="text-center text-sm text-ink-muted">Aucune séance disponible.</p>
+            @else
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                    @foreach($availableSessions as $session)
+                        <x-app.session-card :session="$session" :show-register="true" />
+                    @endforeach
+                </div>
+            @endif
+        </x-admin.page-card>
+    @else
+        <x-admin.page-card title="Toutes mes séances">
+            @if($sessions->isEmpty())
+                <p class="text-center text-sm text-ink-muted">Aucune séance trouvée.</p>
+            @else
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                    @foreach($sessions as $session)
+                        <x-app.session-card :session="$session" />
+                    @endforeach
+                </div>
+            @endif
+        </x-admin.page-card>
+    @endif
 </x-app-layout>

@@ -7,27 +7,22 @@
 
     <title>{{ config('app.name', 'CoachPro+') }} — Administration</title>
 
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
 <body
-    class="min-h-screen bg-background font-sans antialiased text-dark"
+    class="app-shell min-h-screen bg-page font-sans text-ink antialiased"
     x-data="{ sidebarOpen: false }"
     x-init="$watch('sidebarOpen', value => document.body.classList.toggle('overflow-hidden', value && window.innerWidth < 1024))"
 >
-    {{-- Overlay mobile --}}
     <div
-        class="fixed inset-0 z-30 bg-dark/40 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
+        class="fixed inset-0 z-30 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
         x-show="sidebarOpen"
-        x-transition:enter="ease-out duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="ease-in duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
+        x-transition.opacity
         @click="sidebarOpen = false"
         x-cloak
         aria-hidden="true"
@@ -35,18 +30,19 @@
 
     @include('layouts.partials.admin-sidebar')
 
-    <div class="flex min-h-screen flex-col lg:pl-72">
-        @include('layouts.partials.admin-header')
+    <div class="flex min-h-screen flex-col lg:pl-64">
+        <main class="flex-1 p-4 sm:p-6 lg:p-8">
+            <x-admin.top-bar
+                :title="$header ?? 'Administration'"
+                :subtitle="$subtitle ?? null"
+            />
 
-        <main class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
             {{ $slot }}
         </main>
     </div>
 
     @stack('scripts')
 
-    <style>
-        [x-cloak] { display: none !important; }
-    </style>
+    <style>[x-cloak] { display: none !important; }</style>
 </body>
 </html>

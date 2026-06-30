@@ -1,11 +1,8 @@
-@php
-    $inputClass = 'mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary';
-@endphp
+@php $inputClass = 'admin-input'; @endphp
 
 <x-admin-layout>
-    <x-slot name="header">
-        {{ __('Nouvelle entreprise') }}
-    </x-slot>
+    <x-slot name="header">{{ __('Nouvelle entreprise') }}</x-slot>
+    <x-slot name="subtitle">{{ __('Ajoutez une entreprise partenaire') }}</x-slot>
 
     @include('admin.partials.flash')
 
@@ -29,7 +26,7 @@
                     <input type="tel" name="phone" id="phone" value="{{ old('phone') }}" class="{{ $inputClass }}">
                 </div>
                 <div>
-                    <label for="email" class="block text-sm font-bold text-primary">Email</label>
+                    <label for="email" class="block text-sm font-bold text-primary">E-mail</label>
                     <input type="email" name="email" id="email" value="{{ old('email') }}" class="{{ $inputClass }}">
                 </div>
             </div>
@@ -40,10 +37,10 @@
             </div>
 
             <div class="flex flex-col gap-3 sm:flex-row">
-                <button type="submit" class="rounded-xl bg-primary px-6 py-3 font-bold text-white shadow-lg transition hover:bg-primary-dark">
+                <button type="submit" class="admin-btn-primary px-6 py-3">
                     Créer l'entreprise
                 </button>
-                <a href="{{ route('admin.companies.index') }}" class="rounded-xl border border-primary/20 px-6 py-3 text-center font-bold text-primary transition hover:bg-primary/5">
+                <a href="{{ route('admin.companies.index') }}" class="admin-btn-secondary px-6 py-3">
                     Annuler
                 </a>
             </div>

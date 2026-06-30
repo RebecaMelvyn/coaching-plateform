@@ -13,19 +13,27 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                display: ['"Plus Jakarta Sans"', 'Inter', ...defaultTheme.fontFamily.sans],
+                mono: [...defaultTheme.fontFamily.mono],
             },
             colors: {
                 primary: {
-                    DEFAULT: '#2563eb', // bleu profond
+                    DEFAULT: '#2563eb',
                     light: '#60a5fa',
                     dark: '#1e40af',
                 },
                 accent: {
-                    DEFAULT: '#a78bfa', // violet
+                    DEFAULT: '#a78bfa',
                     light: '#c4b5fd',
                 },
-                success: '#22c55e', // vert
+                page: '#f8fafc',
+                sidebar: '#1e293b',
+                ink: {
+                    DEFAULT: '#0f172a',
+                    muted: '#64748b',
+                },
+                success: '#22c55e',
                 background: '#f4f6fa',
                 surface: '#fff',
                 muted: '#e5e7eb',
@@ -35,7 +43,7 @@ export default {
                 'xl-glass': '0 8px 32px 0 rgba(31, 38, 135, 0.18)',
             },
             borderRadius: {
-                'xl': '1.5rem',
+                xl: '1.5rem',
                 '2xl': '2rem',
             },
         },

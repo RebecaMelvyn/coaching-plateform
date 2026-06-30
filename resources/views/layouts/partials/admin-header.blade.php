@@ -29,7 +29,7 @@
         {{-- Zone droite --}}
         <div class="flex shrink-0 items-center gap-3">
             <span class="hidden rounded-full bg-accent/15 px-3 py-1 text-xs font-bold uppercase tracking-wide text-accent sm:inline-flex">
-                Back Office
+                Back-office
             </span>
 
             @auth

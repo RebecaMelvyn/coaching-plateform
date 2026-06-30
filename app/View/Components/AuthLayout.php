@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class GuestLayout extends Component
+class AuthLayout extends Component
 {
     public function render(): View
     {
